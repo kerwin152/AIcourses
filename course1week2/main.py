@@ -10,10 +10,16 @@ print('shape of train_y is '+str(train_y.shape))#(209,1)
 print('shape of test_x is '+str(test_x.shape))#(50, 12288)
 print('shape of test_y is '+str(test_y.shape))#(50,1)
 
+#train from scratch,run these two line
 W,B = initial_W_B()
-# propagate(train_x.T,train_y.T,W,B)
-params,lossList = optimize(train_x.T,train_y.T,W,B,0.01,2000)
-Ypre = predict(test_x.T,params["w"],params["b"])
-print(Ypre)
-print(test_y.T)
+params = optimize(train_x.T,train_y.T,W,B,0.01,2000)
+
+#train from trained weights,run these two line
+# dic_param=np.load('myparams.npy',allow_pickle=True).item()
+# params = optimize(train_x.T,train_y.T,dic_param['w'],dic_param['b'],0.01,200)
+
+
+acc = predict(test_x.T,test_y.T,params["w"],params["b"])
+print("测试集准确率为"+str(acc*100)+"%")
+
 

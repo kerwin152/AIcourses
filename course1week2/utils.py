@@ -49,7 +49,6 @@ def propagate(X,Y,W,B):
     '''
     Z = np.dot(W.T,X)+B
     A = sigmoid(Z)
-    # print(A.shape)
     cost = -Y*np.log(A)-(1-Y)*np.log(1-A)
     m = Y.shape[1]
     loss = cost.sum()/m
@@ -89,9 +88,19 @@ def optimize(X,Y,W,B,learn_rate=0.001,iteration=10):
         "w":W,
         "b":B
     }
-    return params,losslist
+    #save weights
+    np.save('myparams.npy', params)
 
-def predict(X,W,B):
+    plt.plot(losslist)
+    plt.ylabel('loss')
+    plt.xlabel('iteration(per tens)')
+    plt.title('learning rate='+str(learn_rate))
+    plt.show()
+
+
+    return params
+
+def predict(X,Y,W,B):
     m = X.shape[1]
     Y_pred = np.zeros((1,m))
 
@@ -99,7 +108,14 @@ def predict(X,W,B):
 
     for i in range(X.shape[1]):
         Y_pred[0,i] = 1 if A[0,i] > 0.5 else 0
-    return Y_pred
+    accuracy = Y-Y_pred #0为准确，不为0就不准确
+    cur=0
+    for i in range(accuracy.shape[1]):
+        if accuracy[0,i] == 0:
+            cur = cur+1
+    acc = cur / accuracy.shape[1]
+
+    return acc
 
 
 
