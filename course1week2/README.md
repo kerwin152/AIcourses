@@ -8,7 +8,7 @@ Achieve the goal to detect cat pictures
 
 all tools are put in `utils.py`
 
-only need to run the `main.py`
+only need to run `main.py`
 
 function `optimize` can train the model and `predict` can make a prediction according to input
 
