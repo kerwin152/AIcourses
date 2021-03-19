@@ -12,7 +12,7 @@ print('shape of test_y is '+str(test_y.shape))#(50,1)
 
 #train from scratch,run these two line
 W,B = initial_W_B()
-params = optimize(train_x.T,train_y.T,W,B,0.01,2000)
+params = optimize(train_x.T,train_y.T,W,B,0.01,3000)
 
 #train from trained weights,run these two line
 # dic_param=np.load('myparams.npy',allow_pickle=True).item()

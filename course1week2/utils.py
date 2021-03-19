@@ -43,7 +43,7 @@ def propagate(X,Y,W,B):
     '''
     :param X: (特征数，图片数)
     :param Y: (1，图片数)
-    :param W: (下一层节点数,特征数)=(1,特征数)
+    :param W: (特征数,下一层节点数)=(特征数,1)
     :param B: 常量
     :return: grads-梯度信息  loss-损失值
     '''
