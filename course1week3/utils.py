@@ -54,9 +54,9 @@ def propagate(X,Y,params):
     m = X.shape[1] #图片数
 
     Z1 = np.dot(params["W1"],X)+params["B1"]#(3，图片数)
-    A1 = tanh(Z1)#(3，图片数)
+    A1 = tanh(Z1)#(3，图片数)#隐藏层用tanh激活函数
     Z2 = np.dot(params["W2"],A1)+params["B2"]#(1,图片数)
-    A2 = sigmoid(Z2) #输出层用tanh函数
+    A2 = sigmoid(Z2) #输出层用sigmoid函数
     cost = -Y*np.log(A2)-(1-Y)*np.log(1-A2)
     m = Y.shape[1]
     loss = cost.sum()/m
@@ -91,3 +91,33 @@ def optimize(X,Y,initial_WB,learning_rate=0.001,iteration=100):
             losslist.append(loss)
             print("迭代的次数: %i ， 误差值： %f" % (i, loss))
 
+    #save weights
+    np.save('myparams.npy', params)
+
+    plt.plot(losslist)
+    plt.ylabel('loss')
+    plt.xlabel('iteration(per tens)')
+    plt.title('learning rate='+str(learning_rate))
+    plt.show()
+
+    return params
+
+def predict(X,Y,params):
+    m = X.shape[1]
+    Y_pred = np.zeros((1,m))
+
+    Z1 = np.dot(params["W1"], X) + params["B1"]  # (3，图片数)
+    A1 = tanh(Z1)  # (3，图片数)
+    Z2 = np.dot(params["W2"], A1) + params["B2"]  # (1,图片数)
+    A2 = sigmoid(Z2)  # 输出层用sigmoid函数
+
+    for i in range(X.shape[1]):
+        Y_pred[0,i] = 1 if A2[0,i] > 0.5 else 0
+    accuracy = Y-Y_pred #0为准确，不为0就不准确
+    cur=0
+    for i in range(accuracy.shape[1]):
+        if accuracy[0,i] == 0:
+            cur = cur+1
+    acc = cur / accuracy.shape[1]
+
+    return acc

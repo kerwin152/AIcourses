@@ -10,7 +10,7 @@ print('shape of train_y is '+str(train_y.shape))#(209,1)
 print('shape of test_x is '+str(test_x.shape))#(50, 12288)
 print('shape of test_y is '+str(test_y.shape))#(50,1)
 
-#train from scratch,run these two line
+#train from scratch
 W,B = initial_W_B()
 params = optimize(train_x.T,train_y.T,W,B,0.01,3000)
 
